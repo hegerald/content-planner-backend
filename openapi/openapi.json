@@ -1,0 +1,508 @@
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "Channel" : {
+        "description" : "Ein Social-Media-Kanal mit seinem Zeichenlimit",
+        "type" : "object",
+        "properties" : {
+          "channel" : {
+            "description" : "Technischer Schlüssel",
+            "type" : "string",
+            "examples" : [ "LINKEDIN" ],
+            "$ref" : "#/components/schemas/Channel1"
+          },
+          "displayName" : {
+            "type" : "string",
+            "description" : "Anzeigename",
+            "examples" : [ "LinkedIn" ]
+          },
+          "maxLength" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "Maximale Zeichenanzahl des Post-Texts",
+            "examples" : [ 3000 ]
+          }
+        }
+      },
+      "Channel1" : {
+        "type" : "string",
+        "enum" : [ "INSTAGRAM", "LINKEDIN", "X", "FACEBOOK" ]
+      },
+      "Error" : {
+        "description" : "Einheitliches Fehlerformat aller Endpunkte",
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "description" : "HTTP-Statuscode",
+            "examples" : [ 422 ]
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "Stabiler, maschinenlesbarer Fehlercode",
+            "examples" : [ "TEXT_TOO_LONG" ]
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Lesbare Beschreibung",
+            "examples" : [ "Der Text ist für X zu lang (max. 280 Zeichen)." ]
+          }
+        }
+      },
+      "Instant" : {
+        "type" : "string",
+        "format" : "date-time",
+        "examples" : [ "2022-03-10T16:15:50Z" ]
+      },
+      "Post" : {
+        "description" : "Ein geplanter Social-Media-Post inklusive der erlaubten Aktionen",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "description" : "ID",
+            "examples" : [ 1 ]
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "Interner Titel"
+          },
+          "text" : {
+            "type" : "string",
+            "description" : "Post-Text"
+          },
+          "channel" : {
+            "description" : "Ziel-Kanal",
+            "type" : "string",
+            "$ref" : "#/components/schemas/Channel1"
+          },
+          "status" : {
+            "description" : "Aktueller Status",
+            "type" : "string",
+            "$ref" : "#/components/schemas/PostStatus"
+          },
+          "scheduledAt" : {
+            "description" : "Geplanter Veröffentlichungszeitpunkt (UTC)",
+            "type" : "string",
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "publishedAt" : {
+            "description" : "Tatsächlicher Veröffentlichungszeitpunkt (UTC)",
+            "type" : "string",
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "createdAt" : {
+            "description" : "Angelegt am (UTC)",
+            "type" : "string",
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "updatedAt" : {
+            "description" : "Zuletzt geändert am (UTC)",
+            "type" : "string",
+            "$ref" : "#/components/schemas/Instant"
+          },
+          "editable" : {
+            "type" : "boolean",
+            "description" : "Darf der Post aktuell bearbeitet werden?"
+          },
+          "deletable" : {
+            "type" : "boolean",
+            "description" : "Darf der Post aktuell gelöscht werden?"
+          },
+          "allowedTransitions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PostStatus"
+            },
+            "description" : "Status, in die aktuell gewechselt werden darf"
+          }
+        }
+      },
+      "PostRequest" : {
+        "description" : "Daten zum Anlegen oder Ändern eines Posts. Der Status wird nicht hier, sondern über den Status-Endpunkt geändert.",
+        "type" : "object",
+        "required" : [ "title", "text", "channel" ],
+        "properties" : {
+          "title" : {
+            "type" : "string",
+            "description" : "Interner Titel",
+            "examples" : [ "Herbst-Kampagne Teaser" ],
+            "pattern" : "\\S",
+            "maxLength" : 100
+          },
+          "text" : {
+            "type" : "string",
+            "description" : "Post-Text. Maximale Länge hängt vom Kanal ab, siehe /api/channels.",
+            "examples" : [ "Bald ist es so weit …" ],
+            "pattern" : "\\S"
+          },
+          "channel" : {
+            "description" : "Ziel-Kanal",
+            "type" : "string",
+            "examples" : [ "LINKEDIN" ],
+            "$ref" : "#/components/schemas/Channel1"
+          },
+          "scheduledAt" : {
+            "description" : "Geplanter Veröffentlichungszeitpunkt (ISO-8601, UTC). Optional für Entwürfe.",
+            "type" : "string",
+            "examples" : [ "2026-11-01T09:00:00Z" ],
+            "$ref" : "#/components/schemas/Instant"
+          }
+        }
+      },
+      "PostStatus" : {
+        "type" : "string",
+        "enum" : [ "DRAFT", "SCHEDULED", "PUBLISHED" ]
+      },
+      "StatusChangeRequest" : {
+        "description" : "Gewünschter Zielstatus eines Posts",
+        "type" : "object",
+        "required" : [ "targetStatus" ],
+        "properties" : {
+          "targetStatus" : {
+            "description" : "Zielstatus",
+            "type" : "string",
+            "examples" : [ "SCHEDULED" ],
+            "$ref" : "#/components/schemas/PostStatus"
+          }
+        }
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "Channels",
+    "description" : "Verfügbare Social-Media-Kanäle"
+  }, {
+    "name" : "Posts",
+    "description" : "Geplante Social-Media-Posts verwalten"
+  } ],
+  "paths" : {
+    "/api/channels" : {
+      "get" : {
+        "summary" : "Alle Kanäle inklusive Zeichenlimit",
+        "operationId" : "listChannels",
+        "tags" : [ "Channels" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Channel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/posts" : {
+      "get" : {
+        "summary" : "Posts auflisten, optional gefiltert",
+        "description" : "Sortiert nach geplantem Zeitpunkt; Posts ohne Termin stehen am Ende.",
+        "operationId" : "listPosts",
+        "tags" : [ "Posts" ],
+        "parameters" : [ {
+          "description" : "Nur Posts dieses Kanals",
+          "name" : "channel",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/Channel1"
+          }
+        }, {
+          "description" : "Nur Posts mit diesem Status",
+          "name" : "status",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/PostStatus"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Neuen Post als Entwurf anlegen",
+        "operationId" : "createPost",
+        "tags" : [ "Posts" ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PostRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Angelegt",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Eingabe ungültig",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Fachliche Regel verletzt (z. B. Text zu lang)",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/posts/{id}" : {
+      "put" : {
+        "summary" : "Inhalt und Termin eines Posts ändern",
+        "operationId" : "updatePost",
+        "tags" : [ "Posts" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PostRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Geändert",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Eingabe ungültig",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Nicht gefunden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Fachliche Regel verletzt",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "summary" : "Einzelnen Post laden",
+        "operationId" : "getPost",
+        "tags" : [ "Posts" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Gefunden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Nicht gefunden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "Post löschen",
+        "operationId" : "deletePost",
+        "tags" : [ "Posts" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Gelöscht"
+          },
+          "404" : {
+            "description" : "Nicht gefunden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Veröffentlichte Posts können nicht gelöscht werden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/posts/{id}/status" : {
+      "post" : {
+        "summary" : "Status eines Posts wechseln",
+        "description" : "Erlaubt: DRAFT → SCHEDULED, SCHEDULED → DRAFT, SCHEDULED → PUBLISHED.",
+        "operationId" : "changePostStatus",
+        "tags" : [ "Posts" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/StatusChangeRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Status gewechselt",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Nicht gefunden",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Statuswechsel nicht erlaubt",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "info" : {
+    "title" : "Content Planner Backend API",
+    "version" : "1.0.0",
+    "description" : "Business-Logik und Persistenz für geplante Social-Media-Posts. Alle Regeln (Zeichenlimits, Statuswechsel, Termine) werden hier geprüft."
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8081",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:8081",
+    "description" : "Auto generated value"
+  } ]
+}
