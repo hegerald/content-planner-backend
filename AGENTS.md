@@ -31,5 +31,12 @@ die Antworten dieses Services.
 - Zeit immer über die injizierte `Clock`, nie `Instant.now()` in Fachlogik.
 - Sprache: Code und Bezeichner Englisch, Kommentare, Meldungen und Doku Deutsch.
 
+## Agent-Konfiguration in diesem Repo (offene Standards + GitHub Copilot)
+- `AGENTS.md` (diese Datei) – offener Standard, gelesen von Copilot, Codex, Claude Code, Gemini (konfigurierbar) u. a.
+- `.agents/skills/` – Agent-Skills-Standard (agentskills.io), z. B. `add-business-rule`
+- `.github/agents/` – Copilot Custom Agents (z. B. `Reviewer`)
+- `.github/instructions/` – Copilot-Regeln nur für bestimmte Pfade (`applyTo`)
+- `.vscode/mcp.json` – GitHub-MCP für Copilot in VS Code
+
 ## Abnehmer (Upstream)
 - `content-planner-ui` (UI-Service, Repo `hegerald/content-planner-ui`) ruft `/api/**` per REST auf.

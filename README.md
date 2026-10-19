@@ -39,4 +39,8 @@ Oberfläche bauen.
 Die Datei wird eingecheckt, damit Änderungen an der API im Pull Request sichtbar sind.
 
 ## Für KI-Agents
-Projektregeln stehen in [AGENTS.md](AGENTS.md) (wird von Claude Code über `CLAUDE.md` geladen).
+Projektregeln stehen in [AGENTS.md](AGENTS.md). Dieses Repo zeigt bewusst die **offenen
+Standards und GitHub Copilot**: `.agents/skills/` (Agent Skills), `.github/agents/`
+(Custom Agents), `.github/instructions/` (pfadbezogene Regeln), `.vscode/mcp.json`.
+Eine `CLAUDE.md` gibt es hier nicht – Claude Code liest `AGENTS.md` direkt.
+Das Gegenstück mit Claude-Code-Konfiguration liegt im Repo `content-planner-ui`.
