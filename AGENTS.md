@@ -11,9 +11,9 @@ die Antworten dieses Services.
 - REST + Jackson, Bean Validation, SmallRye OpenAPI
 
 ## Befehle
-- Starten (Dev-Modus, Port 8081, Live-Reload): `mvn quarkus:dev`
-- Alle Tests: `mvn test`
-- Build inkl. OpenAPI-Contract: `mvn package` → schreibt `openapi/openapi.yaml`
+- Starten (Dev-Modus, Port 8081, Live-Reload): `./mvnw quarkus:dev`
+- Alle Tests: `./mvnw test`
+- Build inkl. OpenAPI-Contract: `./mvnw package` → schreibt `openapi/openapi.yaml`
 - Swagger UI: http://localhost:8081/q/swagger-ui
 
 ## Struktur
@@ -27,7 +27,7 @@ die Antworten dieses Services.
 - Neue Fachregel → in `PostRules` + Unit-Test in `PostRulesTest`, dann Integrationstest in `PostResourceTest`.
 - Verletzte Fachregel = `BusinessRuleException` mit stabilem `code` (HTTP 422). Codes niemals umbenennen – Clients reagieren darauf.
 - Antworten enthalten berechnete Felder (`editable`, `deletable`, `allowedTransitions`), damit UIs keine Regeln nachbauen müssen. Neue Aktionen genauso abbilden.
-- API-Änderungen sind Contract-Änderungen: `openapi/openapi.yaml` nach `mvn package` mit committen. Nur rückwärtskompatibel erweitern (neue optionale Felder ok, Felder entfernen/umbenennen nicht).
+- API-Änderungen sind Contract-Änderungen: `openapi/openapi.yaml` nach `./mvnw package` mit committen. Nur rückwärtskompatibel erweitern (neue optionale Felder ok, Felder entfernen/umbenennen nicht).
 - Zeit immer über die injizierte `Clock`, nie `Instant.now()` in Fachlogik.
 - Sprache: Code und Bezeichner Englisch, Kommentare, Meldungen und Doku Deutsch.
 

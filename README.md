@@ -18,11 +18,11 @@ Oberfläche bauen.
 
 ## Voraussetzungen
 - JDK 25 oder neuer
-- Maven 3.9+
+- Maven ist nicht nötig: `./mvnw` lädt Maven 3.10 selbst (Windows: `.\mvnw.cmd` oder `.\mvnw` in PowerShell)
 
 ## Starten
 ```bash
-mvn quarkus:dev
+./mvnw quarkus:dev
 ```
 - API: http://localhost:8081/api/posts
 - Swagger UI: http://localhost:8081/q/swagger-ui
@@ -31,11 +31,11 @@ mvn quarkus:dev
 
 ## Testen
 ```bash
-mvn test
+./mvnw test
 ```
 
 ## API-Contract
-`mvn package` schreibt den OpenAPI-Contract nach `openapi/openapi.yaml` (und `.json`).
+`./mvnw package` schreibt den OpenAPI-Contract nach `openapi/openapi.yaml` (und `.json`).
 Die Datei wird eingecheckt, damit Änderungen an der API im Pull Request sichtbar sind.
 
 ## Für KI-Agents
