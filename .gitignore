@@ -1,0 +1,27 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# H2-Datenbankdatei (lokale Daten, nicht einchecken)
+data/
+
+# IDEs
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.classpath
+.project
+.settings/
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lokale Claude-Code-Einstellungen (persönlich, nicht teilen)
+.claude/settings.local.json
+
+# Secrets
+.env
