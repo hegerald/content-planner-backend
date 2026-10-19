@@ -26,6 +26,6 @@ GitHub Copilot, Codex, Gemini CLI und weiteren Agents gelesen.
 6. **Erlaubte Aktionen**: Beeinflusst die Regel, was eine Oberfläche anbieten darf, das
    berechnete Feld in `PostResponse` (`editable`, `deletable`, `allowedTransitions`) anpassen.
 7. **Contract**: `./mvnw package` ausführen, `openapi/openapi.yaml` mit committen und den
-   neuen Fehlercode in der Upstream-Doku des UI-Repos ergänzen
-   (`docs/downstream/content-planner-backend.md`).
+   neuen Fehlercode im Wissens-Bundle des UI-Repos ergänzen
+   (`docs/downstream/content-planner-backend/errors/<code>.md`, Open Knowledge Format).
 8. `./mvnw test` muss grün sein.
