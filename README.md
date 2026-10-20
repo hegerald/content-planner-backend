@@ -32,6 +32,7 @@ mvn quarkus:dev
 ## Testen
 ```bash
 mvn test
+node scripts/verify.mjs   # wie die CI: Build, Tests, OpenAPI-Contract aktuell?
 ```
 
 ## API-Contract

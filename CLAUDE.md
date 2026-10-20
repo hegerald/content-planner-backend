@@ -13,6 +13,8 @@ die Antworten dieses Services.
 ## Befehle
 - Starten (Dev-Modus, Port 8081, Live-Reload): `mvn quarkus:dev`
 - Alle Tests: `mvn test`
+- Alles wie die CI (Build, Tests, Contract): `node scripts/verify.mjs` – dasselbe Skript nutzen CI
+  und Push-Hook; Auswertung per Skill `/verify-backend`. Was geprüft wird, nur im Skript ändern.
 - Build inkl. OpenAPI-Contract: `mvn package` → schreibt `openapi/openapi.yaml`
 - Swagger UI: http://localhost:8081/q/swagger-ui
 
@@ -34,9 +36,9 @@ die Antworten dieses Services.
 ## Claude-Code-Konfiguration in diesem Repo
 - `CLAUDE.md` (diese Datei) – Projektregeln, in jeder Sitzung geladen
 - `.claude/rules/` – Regeln nur für bestimmte Pfade (`paths:`), z. B. `java-tests.md`
-- `.claude/skills/` – Skills, z. B. `add-business-rule`, `start-backend`
+- `.claude/skills/` – Skills, z. B. `add-business-rule`, `start-backend`, `verify-backend`
 - `.claude/agents/` – Subagents, z. B. `reviewer`
-- `.claude/settings.json` + `.claude/hooks/` – Hook: `mvn test` muss vor `git push` grün sein
+- `.claude/settings.json` + `.claude/hooks/` – Hook: `scripts/verify.mjs` muss vor `git push` grün sein
 - `.mcp.json` – GitHub-MCP, Token aus Umgebungsvariable `GITHUB_PERSONAL_ACCESS_TOKEN`
 - Persönliches (nicht eingecheckt): `CLAUDE.local.md`, `.claude/settings.local.json`
 

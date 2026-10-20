@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/verify.mjs)",
+      "Bash(node scripts/verify.mjs *)"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -8,7 +14,7 @@
             "type": "command",
             "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/test-before-push.mjs\"",
             "timeout": 600,
-            "statusMessage": "Prüfe Quarkus-Tests vor git push …"
+            "statusMessage": "Prüfe Build, Tests und OpenAPI-Contract vor git push …"
           }
         ]
       }

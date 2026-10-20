@@ -19,7 +19,9 @@ jobs:
           distribution: temurin
           java-version: "25"
           cache: maven
-      - name: Build und Tests
-        run: mvn -B verify
-      - name: OpenAPI-Contract aktuell?
-        run: git diff --exit-code -- openapi/ || (echo "::error::openapi/ ist veraltet – mvn package ausführen und committen" && exit 1)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      # Gleiches Skript wie lokal (Skill verify-backend): Build, Tests, OpenAPI-Contract aktuell?
+      - name: Build, Tests und Contract
+        run: node scripts/verify.mjs
