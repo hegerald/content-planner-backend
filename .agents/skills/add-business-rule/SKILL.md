@@ -25,7 +25,7 @@ GitHub Copilot, Codex, Gemini CLI und weiteren Agents gelesen.
 5. **Integrationstest** in `PostResourceTest`: HTTP 422 und `code` prüfen.
 6. **Erlaubte Aktionen**: Beeinflusst die Regel, was eine Oberfläche anbieten darf, das
    berechnete Feld in `PostResponse` (`editable`, `deletable`, `allowedTransitions`) anpassen.
-7. **Contract**: `./mvnw package` ausführen, `openapi/openapi.yaml` mit committen und den
+7. **Contract**: `mvn package` ausführen, `openapi/openapi.yaml` mit committen und den
    neuen Fehlercode im Wissens-Bundle des UI-Repos ergänzen
    (`docs/downstream/content-planner-backend/errors/<code>.md`, Open Knowledge Format).
-8. `./mvnw test` muss grün sein.
+8. `mvn test` muss grün sein.

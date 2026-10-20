@@ -20,6 +20,6 @@ jobs:
           java-version: "25"
           cache: maven
       - name: Build und Tests
-        run: ./mvnw -B verify
+        run: mvn -B verify
       - name: OpenAPI-Contract aktuell?
-        run: git diff --exit-code -- openapi/ || (echo "::error::openapi/ ist veraltet – ./mvnw package ausführen und committen" && exit 1)
+        run: git diff --exit-code -- openapi/ || (echo "::error::openapi/ ist veraltet – mvn package ausführen und committen" && exit 1)

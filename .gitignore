@@ -1,6 +1,5 @@
 # Maven
 target/
-!.mvn/wrapper/maven-wrapper.jar
 
 # H2-Datenbankdatei (lokale Daten, nicht einchecken)
 data/
