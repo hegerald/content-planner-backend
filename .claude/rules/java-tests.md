@@ -1,5 +1,6 @@
 ---
-applyTo: "src/test/**/*.java"
+paths:
+  - "src/test/**/*.java"
 ---
 
 # Regeln für Tests (wird nur bei Testdateien geladen)

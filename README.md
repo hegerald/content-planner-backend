@@ -39,8 +39,6 @@ mvn test
 Die Datei wird eingecheckt, damit Änderungen an der API im Pull Request sichtbar sind.
 
 ## Für KI-Agents
-Projektregeln stehen in [AGENTS.md](AGENTS.md). Dieses Repo zeigt bewusst die **offenen
-Standards und GitHub Copilot**: `.agents/skills/` (Agent Skills), `.github/agents/`
-(Custom Agents), `.github/instructions/` (pfadbezogene Regeln), `.vscode/mcp.json`.
-Eine `CLAUDE.md` gibt es hier nicht – Claude Code liest `AGENTS.md` direkt.
-Das Gegenstück mit Claude-Code-Konfiguration liegt im Repo `content-planner-ui`.
+Projektregeln stehen in [CLAUDE.md](CLAUDE.md). Dieses Repo ist bewusst **nur für Claude Code**
+konfiguriert: `.claude/rules/` (pfadbezogene Regeln), `.claude/skills/` (Skills),
+`.claude/agents/` (Subagents), `.claude/settings.json` mit Hooks und `.mcp.json`.

@@ -1,16 +1,9 @@
 ---
 name: add-business-rule
 description: Fügt dem Content-Planner-Backend eine neue Fachregel hinzu (z. B. Zeichenlimit, Statuswechsel, Terminprüfung) – testgetrieben in PostRules, mit stabilem Fehlercode, Integrationstest und aktualisiertem OpenAPI-Contract. Verwenden, wenn sich fachliches Verhalten des Backends ändert.
-license: MIT
-metadata:
-  scope: project
-  version: "1.0"
 ---
 
 # Neue Fachregel im Backend
-
-Dieser Skill liegt im **offenen Standard-Ordner** `.agents/skills/` und wird von
-GitHub Copilot, Codex, Gemini CLI und weiteren Agents gelesen.
 
 ## Schritte
 

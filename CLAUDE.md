@@ -31,12 +31,14 @@ die Antworten dieses Services.
 - Zeit immer über die injizierte `Clock`, nie `Instant.now()` in Fachlogik.
 - Sprache: Code und Bezeichner Englisch, Kommentare, Meldungen und Doku Deutsch.
 
-## Agent-Konfiguration in diesem Repo (offene Standards + GitHub Copilot)
-- `AGENTS.md` (diese Datei) – offener Standard, gelesen von Copilot, Codex, Claude Code, Gemini (konfigurierbar) u. a.
-- `.agents/skills/` – Agent-Skills-Standard (agentskills.io), z. B. `add-business-rule`, `start-backend`
-- `.github/agents/` – Copilot Custom Agents (z. B. `Reviewer`)
-- `.github/instructions/` – Copilot-Regeln nur für bestimmte Pfade (`applyTo`)
-- `.vscode/mcp.json` – GitHub-MCP für Copilot in VS Code
+## Claude-Code-Konfiguration in diesem Repo
+- `CLAUDE.md` (diese Datei) – Projektregeln, in jeder Sitzung geladen
+- `.claude/rules/` – Regeln nur für bestimmte Pfade (`paths:`), z. B. `java-tests.md`
+- `.claude/skills/` – Skills, z. B. `add-business-rule`, `start-backend`
+- `.claude/agents/` – Subagents, z. B. `reviewer`
+- `.claude/settings.json` + `.claude/hooks/` – Hook: `mvn test` muss vor `git push` grün sein
+- `.mcp.json` – GitHub-MCP, Token aus Umgebungsvariable `GITHUB_PERSONAL_ACCESS_TOKEN`
+- Persönliches (nicht eingecheckt): `CLAUDE.local.md`, `.claude/settings.local.json`
 
 ## Abnehmer (Upstream)
 - `content-planner-ui` (UI-Service, Repo `hegerald/content-planner-ui`) ruft `/api/**` per REST auf.
