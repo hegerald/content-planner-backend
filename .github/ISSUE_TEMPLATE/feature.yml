@@ -1,0 +1,50 @@
+name: Feature / Anforderung
+description: Neue Funktion oder Änderung – gleiche Struktur wie der Skill refine-requirement
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tipp: Mit `/refine-requirement` erzeugt der Agent ein Issue in genau diesem Format.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Ziel
+      description: Warum wird das gebraucht? (1–2 Sätze, keine Lösung)
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: User Story
+      placeholder: Als <Rolle> möchte ich <Funktion>, damit <Nutzen>.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Akzeptanzkriterien
+      description: Testbar formulieren. Mindestens ein Fehlerfall.
+      placeholder: |
+        - [ ] Given …, when …, then …
+        - [ ] Given …, when …, then Fehlermeldung „…"
+    validations:
+      required: true
+  - type: checkboxes
+    id: components
+    attributes:
+      label: Betroffene Komponenten
+      options:
+        - label: Backend (content-planner-backend)
+        - label: UI-Service
+        - label: Frontend (Angular)
+        - label: API-Contract ändert sich
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Annahmen
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Nicht Teil dieses Issues
