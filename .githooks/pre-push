@@ -1,0 +1,10 @@
+#!/bin/sh
+# Git-Hook vor jedem Push (gilt für Menschen und jeden KI-Agent gleichermaßen):
+# `scripts/verify.mjs` muss grün sein – dieselbe Prüfung wie die CI
+# (Build, alle Tests, OpenAPI-Contract aktuell).
+# Einmalig aktivieren: git config core.hooksPath .githooks
+cd "$(git rev-parse --show-toplevel)" || exit 1
+node scripts/verify.mjs --quiet || {
+  echo "Push blockiert: node scripts/verify.mjs ist fehlgeschlagen. Erst reparieren, dann erneut pushen." >&2
+  exit 1
+}

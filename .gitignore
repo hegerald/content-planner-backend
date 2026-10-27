@@ -19,9 +19,5 @@ data/
 .DS_Store
 Thumbs.db
 
-# Lokale Claude-Code-Einstellungen (persönlich, nicht teilen)
-.claude/settings.local.json
-CLAUDE.local.md
-
 # Secrets
 .env

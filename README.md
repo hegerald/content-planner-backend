@@ -40,6 +40,13 @@ node scripts/verify.mjs   # wie die CI: Build, Tests, OpenAPI-Contract aktuell?
 Die Datei wird eingecheckt, damit Änderungen an der API im Pull Request sichtbar sind.
 
 ## Für KI-Agents
-Projektregeln stehen in [CLAUDE.md](CLAUDE.md). Dieses Repo ist bewusst **nur für Claude Code**
-konfiguriert: `.claude/rules/` (pfadbezogene Regeln), `.claude/skills/` (Skills),
-`.claude/agents/` (Subagents), `.claude/settings.json` mit Hooks und `.mcp.json`.
+Projektregeln stehen in [AGENTS.md](AGENTS.md). Dieser Branch nutzt bewusst **nur offene,
+werkzeugunabhängige Standards**: `AGENTS.md` (auch verschachtelt, z. B. `src/test/AGENTS.md`),
+Skills im Agent-Skills-Format unter `.agents/skills/` und einen normalen Git-Hook unter
+`.githooks/` statt eines Agent-Hooks. Hook einmalig aktivieren:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Den GitHub-MCP-Server trägt jede Person im eigenen Werkzeug ein (siehe `AGENTS.md`).

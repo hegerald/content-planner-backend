@@ -1,4 +1,6 @@
 # Wer muss Änderungen reviewen? (wirkt mit Branch-Schutz / Rulesets)
 *                 @hegerald
-/.claude/         @hegerald
+/AGENTS.md        @hegerald
+/.agents/         @hegerald
+/.githooks/       @hegerald
 /.github/         @hegerald

@@ -1,9 +1,6 @@
----
-paths:
-  - "src/test/**/*.java"
----
+# Regeln für Tests
 
-# Regeln für Tests (wird nur bei Testdateien geladen)
+Gilt für alles unter `src/test/` und ergänzt die `AGENTS.md` im Repo-Root.
 
 - Fachregeln als schnelle Unit-Tests in `PostRulesTest` mit `Clock.fixed(...)`, ohne Quarkus-Start.
 - REST-Verhalten als `@QuarkusTest` mit RestAssured in `PostResourceTest`; Fehler immer über

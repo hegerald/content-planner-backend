@@ -5,7 +5,7 @@ description: Prüft das Content-Planner-Backend lokal wie die CI – Build, alle
 
 # Backend prüfen (wie CI)
 
-Die Prüfung selbst steckt in `scripts/verify.mjs`; die CI und der Push-Hook rufen dasselbe
+Die Prüfung selbst steckt in `scripts/verify.mjs`; die CI und der Git-Hook `pre-push` rufen dasselbe
 Skript auf. Dieser Skill führt es aus und wertet aus. Alle Teile über beide Repos prüft der
 Skill `verify-all` im Repo `content-planner-ui`.
 
@@ -18,7 +18,7 @@ Skill `verify-all` im Repo `content-planner-ui`.
    - Fehlgeschlagene Tests: Zusammenfassung nennt Test und Meldung; Details in
      `target/surefire-reports/*.txt`. Ursache suchen, nicht den Test anpassen, ohne nachzufragen.
    - `Contract geändert`: Die API hat sich geändert. Diff von `openapi/` zeigen und prüfen, ob die
-     Änderung rückwärtskompatibel ist (Regeln in `CLAUDE.md`). Gewollt → Dateien gehören in
+     Änderung rückwärtskompatibel ist (Regeln in `AGENTS.md`). Gewollt → Dateien gehören in
      denselben Commit; den UI-Repo-Skill `contract-change` erwähnen.
    - Startet `mvn` nicht: JDK 25+ (`java -version`) und Maven (`mvn -v`) im PATH prüfen.
 3. **Melden:** Zeile der Zusammenfassung, dazu Fehlschläge mit Ursache – nichts automatisch

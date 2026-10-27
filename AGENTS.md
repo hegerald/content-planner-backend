@@ -14,7 +14,7 @@ die Antworten dieses Services.
 - Starten (Dev-Modus, Port 8081, Live-Reload): `mvn quarkus:dev`
 - Alle Tests: `mvn test`
 - Alles wie die CI (Build, Tests, Contract): `node scripts/verify.mjs` – dasselbe Skript nutzen CI
-  und Push-Hook; Auswertung per Skill `/verify-backend`. Was geprüft wird, nur im Skript ändern.
+  und Git-Hook `pre-push`; Auswertung per Skill `verify-backend`. Was geprüft wird, nur im Skript ändern.
 - Build inkl. OpenAPI-Contract: `mvn package` → schreibt `openapi/openapi.yaml`
 - Swagger UI: http://localhost:8081/q/swagger-ui
 
@@ -33,14 +33,21 @@ die Antworten dieses Services.
 - Zeit immer über die injizierte `Clock`, nie `Instant.now()` in Fachlogik.
 - Sprache: Code und Bezeichner Englisch, Kommentare, Meldungen und Doku Deutsch.
 
-## Claude-Code-Konfiguration in diesem Repo
-- `CLAUDE.md` (diese Datei) – Projektregeln, in jeder Sitzung geladen
-- `.claude/rules/` – Regeln nur für bestimmte Pfade (`paths:`), z. B. `java-tests.md`
-- `.claude/skills/` – Skills, z. B. `add-business-rule`, `start-backend`, `verify-backend`
-- `.claude/agents/` – Subagents, z. B. `reviewer`
-- `.claude/settings.json` + `.claude/hooks/` – Hook: `scripts/verify.mjs` muss vor `git push` grün sein
-- `.mcp.json` – GitHub-MCP, Token aus Umgebungsvariable `GITHUB_PERSONAL_ACCESS_TOKEN`
-- Persönliches (nicht eingecheckt): `CLAUDE.local.md`, `.claude/settings.local.json`
+## Agent-Konfiguration in diesem Repo (offene Standards, werkzeugunabhängig)
+- `AGENTS.md` (diese Datei) – Projektregeln; `src/test/AGENTS.md` – zusätzliche Regeln für Tests
+- `.agents/skills/` – Skills im Agent-Skills-Format: `add-business-rule`, `start-backend`,
+  `verify-backend`, `review-change` (unabhängiges Review)
+- `.githooks/pre-push` – Git-Hook: `scripts/verify.mjs` muss vor `git push` grün sein.
+  Einmalig aktivieren: `git config core.hooksPath .githooks`
+- MCP: GitHub-MCP-Server `https://api.githubcopilot.com/mcp/` (HTTP) im eigenen Werkzeug
+  eintragen. Anmeldung per OAuth oder mit Token aus einer Umgebungsvariable – nie ein Token einchecken.
+
+## Regeln für Agents
+- Vor `git commit` und `git push` immer nachfragen. Kein Force-Push, kein `git reset --hard`.
+- `.env`-Dateien nicht lesen und keine Secrets in Code, Issues oder Pull Requests schreiben.
+- Den Git-Hook nicht umgehen (`--no-verify`).
+- Unabhängiges Review mit dem Skill `review-change` möglichst in einem eigenen Kontext
+  (Subagent oder neue Sitzung), nicht im selben Verlauf wie die Umsetzung.
 
 ## Abnehmer (Upstream)
 - `content-planner-ui` (UI-Service, Repo `hegerald/content-planner-ui`) ruft `/api/**` per REST auf.
