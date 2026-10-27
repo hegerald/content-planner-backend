@@ -18,7 +18,7 @@ Skill `verify-all` im Repo `content-planner-ui`.
    - Fehlgeschlagene Tests: Zusammenfassung nennt Test und Meldung; Details in
      `target/surefire-reports/*.txt`. Ursache suchen, nicht den Test anpassen, ohne nachzufragen.
    - `Contract geändert`: Die API hat sich geändert. Diff von `openapi/` zeigen und prüfen, ob die
-     Änderung rückwärtskompatibel ist (Regeln in `CLAUDE.md`). Gewollt → Dateien gehören in
+     Änderung rückwärtskompatibel ist (Regeln in `.github/copilot-instructions.md`). Gewollt → Dateien gehören in
      denselben Commit; den UI-Repo-Skill `contract-change` erwähnen.
    - Startet `mvn` nicht: JDK 25+ (`java -version`) und Maven (`mvn -v`) im PATH prüfen.
 3. **Melden:** Zeile der Zusammenfassung, dazu Fehlschläge mit Ursache – nichts automatisch

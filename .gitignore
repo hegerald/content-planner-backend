@@ -10,6 +10,7 @@ data/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+!.vscode/mcp.json
 .classpath
 .project
 .settings/
@@ -18,10 +19,6 @@ data/
 # OS
 .DS_Store
 Thumbs.db
-
-# Lokale Claude-Code-Einstellungen (persönlich, nicht teilen)
-.claude/settings.local.json
-CLAUDE.local.md
 
 # Secrets
 .env

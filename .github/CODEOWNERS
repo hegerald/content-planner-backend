@@ -1,4 +1,4 @@
 # Wer muss Änderungen reviewen? (wirkt mit Branch-Schutz / Rulesets)
 *                 @hegerald
-/.claude/         @hegerald
+/.vscode/         @hegerald
 /.github/         @hegerald

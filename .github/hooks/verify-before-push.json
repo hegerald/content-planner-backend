@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/verify-before-push.mjs",
+        "timeoutSec": 600
+      }
+    ]
+  }
+}

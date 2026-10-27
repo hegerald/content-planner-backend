@@ -1,0 +1,10 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "mvn test": true,
+    "mvn package": true,
+    "/^node scripts/verify\\.mjs( .*)?$/": true,
+    "/^git (status|diff|log|branch)\\b/": true,
+    "/^git (commit|push)\\b/": false,
+    "/^git reset --hard\\b/": false
+  }
+}

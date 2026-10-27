@@ -40,6 +40,8 @@ node scripts/verify.mjs   # wie die CI: Build, Tests, OpenAPI-Contract aktuell?
 Die Datei wird eingecheckt, damit Änderungen an der API im Pull Request sichtbar sind.
 
 ## Für KI-Agents
-Projektregeln stehen in [CLAUDE.md](CLAUDE.md). Dieses Repo ist bewusst **nur für Claude Code**
-konfiguriert: `.claude/rules/` (pfadbezogene Regeln), `.claude/skills/` (Skills),
-`.claude/agents/` (Subagents), `.claude/settings.json` mit Hooks und `.mcp.json`.
+Projektregeln stehen in [.github/copilot-instructions.md](.github/copilot-instructions.md).
+Dieser Branch ist bewusst **nur für GitHub Copilot** (Agent-Modus in VS Code) konfiguriert:
+`.github/instructions/` (pfadbezogene Regeln), `.github/skills/` (Skills), `.github/agents/`
+(Custom Agents), `.github/hooks/` (Agent-Hook vor `git push`), `.vscode/mcp.json` (GitHub-MCP)
+und `.vscode/settings.json` (Terminal-Freigaben).
